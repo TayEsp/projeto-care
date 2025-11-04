@@ -1,4 +1,4 @@
-export class CreateUser {
+export class CreateExame {
   nome: string;
   especialidade: string;
 }

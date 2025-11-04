@@ -1,30 +1,36 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { PrismaService } from '../database/prisma.service';
+import { Controller, Get, Post, Body, Put, Delete } from '@nestjs/common';
+import { UserService } from './user.service';
+import { Usuario as UsuarioModel, Prisma } from 'generated/prisma';
 import { CreateUser } from '../dto/create-user';
 
 @Controller('user')
 export class UserController {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly userService: UserService) {}
 
-  @Post()
-  async getHello(@Body() body: CreateUser) {
-    const { nome, email, senha, dataNascimento, cpf } = body;
+  @Get()
+  async getUser(
+    @Body() userId: Prisma.UsuarioWhereUniqueInput,
+  ): Promise<UsuarioModel | null> {
+    return this.userService.user(userId);
+  }
 
-    const user = await this.prisma.usuario.create({
-      data: {
-        nome,
-        email,
-        senha,
-        dataDeNascimento: new Date(dataNascimento).toISOString(),
-        cpf,
-        agendamento: {
-          create: [],
-        },
-      },
-    });
+  @Post('signup')
+  async signupUser(@Body() userData: CreateUser): Promise<UsuarioModel> {
+    return this.userService.createUser(userData);
+  }
 
-    return {
-      user,
-    };
+  @Put('update')
+  async updateUser(
+    @Body() userId: Prisma.UsuarioWhereUniqueInput,
+    userData: CreateUser,
+  ): Promise<UsuarioModel> {
+    return this.userService.updateUser({ where: userId, data: userData });
+  }
+
+  @Delete('delete')
+  async deleteUser(
+    @Body() userId: Prisma.UsuarioWhereUniqueInput,
+  ): Promise<UsuarioModel> {
+    return this.userService.deleteUser(userId);
   }
 }

@@ -16,11 +16,13 @@ datasource db {
 
 model Usuario{
   id            String @default(cuid()) @id
-  email         String
+  email         String @unique
   senha         String
   nome          String
   dataDeNascimento DateTime
   cpf           String
+  createdAt     DateTime @default(now())
+  updateAt      DateTime @updatedAt
   agendamento   Agendamento[]
 }
 
@@ -28,15 +30,19 @@ model Exame{
   id            String @default(cuid()) @id
   nome          String
   especialidade String
-  agendamentoId String   @unique
-  agendamento   Agendamento  @relation(fields: [agendamentoId], references: [id])
+  createdAt     DateTime @default(now())
+  updateAt      DateTime @updatedAt
+  agendamento   Agendamento[]
 }
 
 model Agendamento{
   id            String @default(cuid()) @id
-  exame         Exame?
+  Exame         Exame  @relation(fields: [exameId], references: [id])
+  exameId       String   
   data          DateTime
   observacoes   String
-  usuarioId     String   @unique
+  usuarioId     String   
+  createdAt     DateTime @default(now())
+  updateAt      DateTime @updatedAt
   Usuario       Usuario  @relation(fields: [usuarioId], references: [id])
 }

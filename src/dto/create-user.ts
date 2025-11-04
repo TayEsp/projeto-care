@@ -1,4 +1,5 @@
-import { IsNotEmpty, Length, IsEmail } from 'class-validator';
+import { IsNotEmpty, Length, IsEmail, IsDateString } from 'class-validator';
+import { Prisma } from '../../generated/prisma';
 
 export class CreateUser {
   @IsNotEmpty()
@@ -10,8 +11,11 @@ export class CreateUser {
   @IsNotEmpty()
   @Length(8, 20)
   senha: string;
-  dataNascimento: string;
+  @IsNotEmpty()
+  @IsDateString()
+  dataDeNascimento: string;
   @IsNotEmpty()
   @Length(1, 40)
   cpf: string;
+  agendamento: Prisma.AgendamentoCreateNestedManyWithoutUsuarioInput;
 }
