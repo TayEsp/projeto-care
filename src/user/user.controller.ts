@@ -1,12 +1,22 @@
-import { Controller, Get, Post, Body, Put, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { Usuario as UsuarioModel, Prisma } from 'generated/prisma';
 import { CreateUser } from '../dto/create-user';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @UseGuards(AuthGuard)
   @Get()
   async getUser(
     @Body() userId: Prisma.UsuarioWhereUniqueInput,
@@ -19,6 +29,7 @@ export class UserController {
     return this.userService.createUser(userData);
   }
 
+  @UseGuards(AuthGuard)
   @Put('update')
   async updateUser(
     @Body() userId: Prisma.UsuarioWhereUniqueInput,
@@ -27,6 +38,7 @@ export class UserController {
     return this.userService.updateUser({ where: userId, data: userData });
   }
 
+  @UseGuards(AuthGuard)
   @Delete('delete')
   async deleteUser(
     @Body() userId: Prisma.UsuarioWhereUniqueInput,
