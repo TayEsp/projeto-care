@@ -14,6 +14,7 @@
 
 ```bash
 $ npm install
+$ npm run generate
 ```
 
 ## Para compilar e rodar o projeto
