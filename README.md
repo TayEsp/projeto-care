@@ -5,7 +5,7 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">Este projeto foi utilizado Nest, um framework de Node.js.</p>
+  <p align="center">Este projeto foi utilizado Nest, um framework de Node.js. Este é apenas o Backend do projeto utilizando de REST API's</p>
     <p align="center">
 
 
@@ -29,7 +29,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-# Para ver o Banco de dados
+## Para acessar o Banco de dados
 
 ```bash
 $ npm run studio
