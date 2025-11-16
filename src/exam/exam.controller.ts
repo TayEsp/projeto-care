@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Put, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Delete,
+  Param,
+} from '@nestjs/common';
 import { ExamService } from './exam.service';
 import { Exame as ExameModel, Prisma } from 'generated/prisma';
 import { CreateExame } from 'src/dto/create-exam';
@@ -7,11 +15,9 @@ import { CreateExame } from 'src/dto/create-exam';
 export class ExamController {
   constructor(private readonly examService: ExamService) {}
 
-  @Get()
-  async getExam(
-    @Body() exameId: Prisma.ExameWhereUniqueInput,
-  ): Promise<ExameModel | null> {
-    return this.examService.exam(exameId);
+  @Get('/:exameId')
+  async getExam(@Param('exameId') exameId: string): Promise<ExameModel | null> {
+    return this.examService.exam({ id: exameId });
   }
 
   @Get('listExams')
@@ -32,10 +38,8 @@ export class ExamController {
     return this.examService.updateExam({ where: exameId, data: examData });
   }
 
-  @Delete('delete')
-  async deleteExam(
-    @Body() exameId: Prisma.ExameWhereUniqueInput,
-  ): Promise<ExameModel> {
-    return this.examService.deleteExam(exameId);
+  @Delete('delete/:exameId')
+  async deleteExam(@Param('exameId') exameId: string): Promise<ExameModel> {
+    return this.examService.deleteExam({ id: exameId });
   }
 }

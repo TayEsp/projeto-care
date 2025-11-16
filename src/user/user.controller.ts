@@ -6,6 +6,7 @@ import {
   Put,
   Delete,
   UseGuards,
+  Param,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Usuario as UsuarioModel, Prisma } from 'generated/prisma';
@@ -17,11 +18,11 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @UseGuards(AuthGuard)
-  @Get()
+  @Get('/:userEmail')
   async getUser(
-    @Body() userId: Prisma.UsuarioWhereUniqueInput,
+    @Param('userEmail') userEmail: string,
   ): Promise<UsuarioModel | null> {
-    return this.userService.user(userId);
+    return this.userService.user({ email: userEmail });
   }
 
   @Post('signup')
@@ -39,10 +40,8 @@ export class UserController {
   }
 
   @UseGuards(AuthGuard)
-  @Delete('delete')
-  async deleteUser(
-    @Body() userId: Prisma.UsuarioWhereUniqueInput,
-  ): Promise<UsuarioModel> {
-    return this.userService.deleteUser(userId);
+  @Delete('delete/:userId')
+  async deleteUser(@Param('userId') userId: string): Promise<UsuarioModel> {
+    return this.userService.deleteUser({ id: userId });
   }
 }

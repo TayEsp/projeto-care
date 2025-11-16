@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Put, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Delete,
+  Param,
+} from '@nestjs/common';
 import { AppointmentService } from './appointment.service';
 import { Agendamento as AgendamentoModel, Prisma } from 'generated/prisma';
 import { CreateAppointment } from '../dto/create-appointment';
@@ -7,11 +15,16 @@ import { CreateAppointment } from '../dto/create-appointment';
 export class AppointmentController {
   constructor(private readonly appointmentService: AppointmentService) {}
 
-  @Get()
+  @Get('listAppointments')
+  async listAgendamento(): Promise<AgendamentoModel[]> {
+    return this.appointmentService.appointments({});
+  }
+
+  @Get(':appointmentId')
   async getAppointment(
-    @Body() appointmentId: Prisma.AgendamentoWhereUniqueInput,
+    @Param('appointmentId') appointmentId: string,
   ): Promise<AgendamentoModel | null> {
-    return this.appointmentService.appointment(appointmentId);
+    return this.appointmentService.appointment({ id: appointmentId });
   }
 
   @Post('create')
@@ -42,10 +55,10 @@ export class AppointmentController {
     });
   }
 
-  @Delete('delete')
+  @Delete('delete/:appointmentId')
   async deleteAppointment(
-    @Body() appointmentId: Prisma.AgendamentoWhereUniqueInput,
+    @Param('appointmentId') appointmentId: string,
   ): Promise<AgendamentoModel> {
-    return this.appointmentService.deleteAppointment(appointmentId);
+    return this.appointmentService.deleteAppointment({ id: appointmentId });
   }
 }

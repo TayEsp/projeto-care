@@ -34,6 +34,10 @@ export class AppointmentService {
   }): Promise<Agendamento[]> {
     const { skip, take, cursor, where, orderBy } = params;
     return this.prisma.agendamento.findMany({
+      include: {
+        Usuario: true,
+        Exame: true,
+      },
       skip,
       take,
       cursor,

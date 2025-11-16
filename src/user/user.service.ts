@@ -11,6 +11,9 @@ export class UserService {
     userWhereUniqueInput: Prisma.UsuarioWhereUniqueInput,
   ): Promise<Usuario | null> {
     return this.prisma.usuario.findUnique({
+      include: {
+        agendamento: true,
+      },
       where: userWhereUniqueInput,
     });
   }
