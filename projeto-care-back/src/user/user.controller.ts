@@ -18,11 +18,9 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @UseGuards(AuthGuard)
-  @Get('/:userEmail')
-  async getUser(
-    @Param('userEmail') userEmail: string,
-  ): Promise<UsuarioModel | null> {
-    return this.userService.user({ email: userEmail });
+  @Get('/:userId')
+  async getUser(@Param('userId') userId: string): Promise<UsuarioModel | null> {
+    return this.userService.user({ id: userId });
   }
 
   @Post('signup')

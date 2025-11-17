@@ -12,7 +12,11 @@ export class UserService {
   ): Promise<Usuario | null> {
     return this.prisma.usuario.findUnique({
       include: {
-        agendamento: true,
+        agendamento: {
+          include: {
+            Exame: true, // inclui os exames de cada agendamento
+          },
+        },
       },
       where: userWhereUniqueInput,
     });

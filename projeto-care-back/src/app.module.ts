@@ -5,11 +5,16 @@ import { UserModule } from './user/user.module';
 import { DatabaseModule } from './database/database.module';
 import { ExamModule } from './exam/exam.module';
 import { AppointmentModule } from './appointment/appointment.module';
+import * as path from 'path';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: [
+        path.resolve(__dirname, '../../.env.shared'),
+        path.resolve(__dirname, '../.env'),
+      ],
     }),
     AuthModule,
     UserModule,

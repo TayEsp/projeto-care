@@ -15,14 +15,14 @@ import { CreateExame } from 'src/dto/create-exam';
 export class ExamController {
   constructor(private readonly examService: ExamService) {}
 
-  @Get('/:exameId')
-  async getExam(@Param('exameId') exameId: string): Promise<ExameModel | null> {
-    return this.examService.exam({ id: exameId });
-  }
-
   @Get('listExams')
   async listExams(): Promise<ExameModel[]> {
     return this.examService.exams({});
+  }
+
+  @Get(':exameId')
+  async getExam(@Param('exameId') exameId: string): Promise<ExameModel | null> {
+    return this.examService.exam({ id: exameId });
   }
 
   @Post('create')
