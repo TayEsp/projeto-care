@@ -96,11 +96,11 @@ export default function Appointment() {
                                 <td className="p-3">{agendamento.Exame.nome}</td>
                                 <td className="p-3">{agendamento.Exame.especialidade}</td>
                                 <td className="p-3">
-                                    {new Date(agendamento.data).toLocaleDateString("pt-BR")};
+                                    {new Date(agendamento.data).toLocaleDateString("pt-BR")}
                                 </td>
                                 <td className="p-3">
-                                    {new Date(agendamento.data).getHours().toString().padStart(2, '0')};
-                                    {new Date(agendamento.data).getMinutes().toString().padStart(2, '0')};
+                                    {new Date(agendamento.data).getHours().toString().padStart(2, '0')}:
+                                    {new Date(agendamento.data).getMinutes().toString().padStart(2, '0')}
                                 </td>
                                 <td className="p-3">{agendamento.observacoes}</td>
                                 <td >

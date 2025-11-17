@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react';
 import Image from "next/image";
+import Link from "next/link";
 
 export default function SignUpFormulario() {
     const today = new Date().toISOString().slice(0, 10);
@@ -63,7 +64,7 @@ export default function SignUpFormulario() {
     };
 
     return (
-        <main className="flex min-h-screen w-full  flex-col items-center justify-center py-2 bg-white">
+        <main className="flex min-h-screen w-full flex-col items-center justify-center py-2 bg-white">
                   <Image alt="Logo do Projeto Care" width={100} height={100} src="logo-care.svg" priority></Image>
                   <h1 className="max-w-xs text-2xl font-semibold leading-10 tracking-tight text-black">
                     Projeto Care
@@ -114,9 +115,9 @@ export default function SignUpFormulario() {
                                     {flagPassword && <div className="text-sm text-red-500 italic mt-1 py-2">As senhas são diferentes. Tente Novamente.</div>}
                                 </div>
                                 <div className="mt-5 flex justify-between w-full">
-                                    <button type="button" className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none mr-8">
+                                    <Link type="button" href="/" className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none mr-8">
                                         Cancelar
-                                    </button>
+                                    </Link>
                                     <button type="submit" className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
                                         Salvar
                                     </button>
