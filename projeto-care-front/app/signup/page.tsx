@@ -1,11 +1,9 @@
 'use client'
 import { useState } from 'react';
-import Link from 'next/link';
 import Image from "next/image";
 
 export default function SignUpFormulario() {
     const today = new Date().toISOString().slice(0, 10);
-    const [flagExist, setFlagExist] = useState()
     const [flagPassword, setFlagPassword] = useState(false)
 
     const [formValues, setFormValues] = useState({

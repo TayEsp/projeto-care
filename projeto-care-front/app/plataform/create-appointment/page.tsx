@@ -10,6 +10,7 @@ type Exam = {
 export default function SignUpFormulario() {
     const today = new Date().toISOString().slice(0, 10);
     const [exams, setExams] = useState<Exam[]>([]);
+    const [error, setError] = useState()
 
     const [formValues, setFormValues] = useState({
         observacoes: '',
@@ -77,8 +78,9 @@ export default function SignUpFormulario() {
                 alert("Agendado com sucesso!")
             } else {
                 const errorBody = await response.json().catch(() => ({}));
-                console.error("Erro ao agendar:", errorBody?.message || response.statusText);
-                alert("Erro ao agendar, tente novamente mais tarde.");
+                setError(errorBody.error)
+                console.error("Erro ao agendar:", errorBody?.error || response.statusText);
+                
             }
 
         } catch (error: unknown) {
@@ -131,7 +133,7 @@ export default function SignUpFormulario() {
                                     <button type="submit" className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
                                         Salvar
                                     </button>
-                                    {/* {flagExist && <div  className="text-sm text-red-500 italic mt-1 py-2">Este email já foi cadastrado!</div>} */}
+                                    {error && <div  className="text-sm text-red-500 italic mt-1 py-2">{error}</div>}
                                 </div>
                             </div>
                         </form>
