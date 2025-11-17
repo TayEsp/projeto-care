@@ -11,7 +11,7 @@ export async function createSession(access_token: string) {
     secure: true,
     expires: expiresAt,
     sameSite: 'lax',
-    path: '/plataform',
+    path: '/',
   })
 }
 
