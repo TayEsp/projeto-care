@@ -1,8 +1,4 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-and
-<p align="center">
-  <a href="https://nestjs.com/" target="_blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+## Projeto Care
 
 
 <p align="center"> Este projeto é um sistema fullstack de agendamento de exames aonde foi utilizado Nestjs, um framework de Node.js e Next.js, um framework de React. Neste projet foi utilizado REST API's e gerenciamento local state</p>
