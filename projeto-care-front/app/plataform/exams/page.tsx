@@ -37,10 +37,10 @@ export default function Exam() {
         return (
             <div className="rounded-xl overflow-hidden border border-gray-300">
                 <table className="min-w-full">
-                    <thead className="bg-blue-600 text-white">
+                    <thead className="bg-blue-100 text-black">
                         <tr>
-                            <th className="p-3 text-left font-medium">Nome</th>
-                            <th className="p-3 text-left font-medium">Especialidade</th>
+                            <th className="p-3 text-left font-semibold">Nome</th>
+                            <th className="p-3 text-left font-semibold">Especialidade</th>
                         </tr>
                     </thead>
 

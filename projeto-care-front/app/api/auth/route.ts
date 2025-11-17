@@ -1,6 +1,6 @@
 'use server'
 import { NextRequest, NextResponse } from 'next/server';
-import { createSession } from '../../lib/sessions'
+import { createSession, deleteSession } from '../../lib/sessions'
 
 export async function POST(req: NextRequest) {
   const { email, senha } = await req.json();
@@ -20,6 +20,18 @@ export async function POST(req: NextRequest) {
     const err = await response.json().catch(() => ({}));
     return NextResponse.json(
       { error: err.message || "Erro fazer login" },
+      { status: 400 }
+    );
+  }
+}
+
+export async function DELETE() {
+  try{
+    await deleteSession()
+    return NextResponse.json({ status: 200 });
+  } catch (err: unknown) {
+    return NextResponse.json(
+      { error: err },
       { status: 400 }
     );
   }

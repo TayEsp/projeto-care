@@ -8,6 +8,30 @@ export default function ClientLayout({
   children: React.ReactNode;
 }>) {
 
+  async function Logout() {
+        const confirmDelete = window.confirm("Tem certeza que deseja sair?");
+
+    if (confirmDelete) {
+        
+        try {
+            const res = await fetch('/api/auth', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (res.ok) {
+                window.location.href = '/';
+            } else {
+                console.error('Erro ao fazer o logout');
+            }
+        } catch (err) {
+            console.error('Erro ao fazer o logout', err);
+        }
+    }
+    };
+
   return (
     <div className="flex flex-row h-screen">
       <aside id="hs-application-sidebar" className="
@@ -19,7 +43,7 @@ export default function ClientLayout({
           <div className="px-6 pt-4 flex items-center justify-center">
 
             <a className="flex-none rounded-xl text-xl text-white inline-block font-semibold focus:outline-hidden focus:opacity-80" href="#" aria-label="Preline">
-              <Image src="logo-care.svg" alt="logo do projeto care" width={150} height={150}></Image>
+              <Image src="logo-care.svg" alt="logo do projeto care" width={150} height={150} priority></Image>
               Projeto Care
             </a>
 
@@ -43,6 +67,10 @@ export default function ClientLayout({
 
                 <li className="hs-accordion" id="account-accordion">
                   <Link href="/plataform/appointments" className="hs-accordion-toggle w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200" aria-expanded="true" aria-controls="account-accordion-child">Agendamentos</Link>
+                </li>
+
+                <li className="hs-accordion mt-8" id="account-accordion">
+                  <button  onClick={() => Logout()} className="hs-accordion-toggle cursor-pointer w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-red-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-red-400" aria-expanded="true" aria-controls="account-accordion-child">Logout</button>
                 </li>
               </ul>
             </nav>

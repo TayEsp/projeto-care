@@ -31,6 +31,8 @@ $ npm run start:prod
 $ npm run studio
 ```
 
+### Abra outro terminal
+
 ### Para instalar o frontend do projeto
 
 ```bash
@@ -38,7 +40,7 @@ $ cd projeto-care-front
 $ npm install
 ```
 
-### Para compilar e rodar o backend do projeto
+### Para compilar e rodar o frontend do projeto
 
 ```bash
 # development

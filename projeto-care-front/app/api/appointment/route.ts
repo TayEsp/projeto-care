@@ -8,9 +8,9 @@ export async function POST(req: NextRequest) {
 
     if (!userSession) {
         return NextResponse.json(
-        { error: "Usuário não autenticado" },
-        { status: 401 }
-    );
+            { error: "Usuário não autenticado" },
+            { status: 401 }
+        );
     }
 
     const data = {
@@ -19,8 +19,17 @@ export async function POST(req: NextRequest) {
     }
     const response = await fetch("http://localhost:3001/appointment/create", { method: "POST", body: JSON.stringify(data), headers: { "Content-Type": "application/json" } })
     if (response.ok) {
+        console.log(response.body)
+        const result = await response.json().catch(() => null);
+
+        if (result === null) {
+            return NextResponse.json(
+                { error: "Exames já agendados para este horário" },
+                { status: 409 }
+            );
+        }
         return NextResponse.json({ status: 200 });
-    }else{
+    } else {
         const err = await response.json().catch(() => ({}));
         return NextResponse.json(
             { error: err.message },

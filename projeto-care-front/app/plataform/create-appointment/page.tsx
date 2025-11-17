@@ -107,6 +107,7 @@ export default function SignUpFormulario() {
                                 <div className="flex-1 flex-col min-w-40">
                                     <label id="observacoes" className="block text-sm mb-2 ">Exame</label>
                                     <select id="ExameId" value={formValues.ExameId} onChange={handleSelectChange} className="py-2 px-3 block w-full border border-blue-100 focus:border-blue-600 shadow-sm text-sm rounded-lg focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+                                            <option key='' value=''> Escolha um exame</option>
                                         {exams?.map((exame: Exam, index: number) => (
                                             <option key={index} value={exame.id}> {exame.nome} - {exame.especialidade}</option>
                                         ))}

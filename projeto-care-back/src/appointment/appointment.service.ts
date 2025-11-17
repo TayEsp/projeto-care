@@ -16,13 +16,33 @@ export class AppointmentService {
 
   async createAppointment(
     data: Prisma.AgendamentoCreateInput,
-  ): Promise<Agendamento> {
-    return this.prisma.agendamento.create({
-      data: {
-        ...data,
-        data: new Date(data.data).toISOString(),
-      },
+  ): Promise<Agendamento | null> {
+    const allAppointments = this.appointments({});
+    const newDate = new Date(data.data);
+
+    const conflict = (await allAppointments).find((ap) => {
+      const existingDate = new Date(ap.data);
+
+      const sameDay =
+        existingDate.getFullYear() === newDate.getFullYear() &&
+        existingDate.getMonth() === newDate.getMonth() &&
+        existingDate.getDate() === newDate.getDate();
+
+      const sameHour = existingDate.getHours() === newDate.getHours();
+
+      return sameDay && sameHour;
     });
+
+    if (!conflict) {
+      return this.prisma.agendamento.create({
+        data: {
+          ...data,
+          data: new Date(data.data).toISOString(),
+        },
+      });
+    } else {
+      return null;
+    }
   }
 
   async appointments(params: {

@@ -5,6 +5,8 @@ import Image from "next/image";
 
 export default function SignUpFormulario() {
     const today = new Date().toISOString().slice(0, 10);
+    const [flagExist, setFlagExist] = useState()
+    const [flagPassword, setFlagPassword] = useState(false)
 
     const [formValues, setFormValues] = useState({
         email: '',
@@ -23,13 +25,13 @@ export default function SignUpFormulario() {
         }));
     };
 
-    const [formErrors, setFormErrors] = useState()
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         // Converte a data para o formato ISO-8601
         const dataDeNascimentoISO = new Date(formValues.dataDeNascimento).toISOString();
+
+        setFlagPassword(formValues.password !== formValues.passwordVerify)
         
         const resultForm = {
             email: formValues.email,
@@ -38,7 +40,7 @@ export default function SignUpFormulario() {
             cpf: formValues.cpf,
             dataDeNascimento: dataDeNascimentoISO,
         };
-
+          if(flagPassword){
             try{
                 const response = await fetch("http://localhost:3001/user/signup", {method: "POST", body: JSON.stringify(resultForm), headers:{"Content-Type":"application/json"}})
                 if (response?.ok){
@@ -59,11 +61,12 @@ export default function SignUpFormulario() {
             console.error("Erro na requisição:", error);
             alert("Erro ao enviar o formulário. Tente novamente mais tarde.");
         }
+      }
     };
 
     return (
         <main className="flex min-h-screen w-full  flex-col items-center justify-center py-2 bg-white">
-                  <Image alt="Logo do Projeto Care" width={100} height={100} src="logo-care.svg"></Image>
+                  <Image alt="Logo do Projeto Care" width={100} height={100} src="logo-care.svg" priority></Image>
                   <h1 className="max-w-xs text-2xl font-semibold leading-10 tracking-tight text-black">
                     Projeto Care
                   </h1>
@@ -110,7 +113,7 @@ export default function SignUpFormulario() {
                                 <label id="passwordVerify" className="block text-sm mb-2 ">Confirmar a senha</label>
                                 <div className="relative">
                                   <input id="passwordVerify" value={formValues.passwordVerify} onChange={handleChange} type="password" className="py-2 px-3 block w-full border border-blue-100 focus:border-blue-600 shadow-sm text-sm rounded-lg focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none " placeholder="Confirme a senha" />
-                                    {<div className="text-sm text-red-500 italic mt-1 py-2">As senhas são diferentes. Tente Novamente.</div>}
+                                    {flagPassword && <div className="text-sm text-red-500 italic mt-1 py-2">As senhas são diferentes. Tente Novamente.</div>}
                                 </div>
                                 <div className="mt-5 flex justify-between w-full">
                                     <button type="button" className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none mr-8">

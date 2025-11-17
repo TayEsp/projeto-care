@@ -73,7 +73,6 @@ export default function Home() {
                   <div>
                     <div className="flex flex-wrap justify-between items-center gap-2">
                       <label id="senha" className="block text-sm mb-2 ">Senha</label>
-                      <a className="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium " href="/recover-account">Esqueceu a senha?</a>
                     </div>
                     <div className="relative">
                       <input id="senha" value={formValues.senha} onChange={handleChange} type="password" className="py-2 px-3 block w-full border border-blue-100 focus:border-blue-600 shadow-sm text-sm rounded-lg focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none " placeholder="Senha" />

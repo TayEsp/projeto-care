@@ -7,7 +7,7 @@ type AppointmentItem = {
         nome: string;
         especialidade: string;
     };
-    data: string; // ISO string ou Date
+    data: string; // ISO string
     observacoes: string;
 };
 
@@ -105,9 +105,11 @@ export default function Plataform() {
                             {semana.map((dataDia, idx) => {
                                 const agendamentosDoDia = user.agendamento
                                     ?.filter(ag => {
+                                        const ano = new Date().getFullYear()
                                         const agData = new Date(ag.data);
+                                        const anoData = agData.getFullYear()
                                         const agDiaMes = `${String(agData.getDate()).padStart(2, '0')}/${String(agData.getMonth() + 1).padStart(2, '0')}`;
-                                        return agDiaMes === dataDia;
+                                        return (agDiaMes === dataDia) && (anoData === ano);
                                     }) || [];
 
                                 return (

@@ -30,7 +30,7 @@ export class AppointmentController {
   @Post('create')
   async createpAppointment(
     @Body() postData: CreateAppointment,
-  ): Promise<AgendamentoModel> {
+  ): Promise<AgendamentoModel | null> {
     const { data, observacoes, ExameId, UsuarioId } = postData;
     return this.appointmentService.createAppointment({
       data,

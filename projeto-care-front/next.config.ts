@@ -10,7 +10,6 @@ module.exports = {
 
 const nextConfig: NextConfig = {
   env: {
-    // expõe explicitamente variáveis para o client
     NEXT_PUBLIC_API_URL: process.env.API_URL,
   },
 };

@@ -80,14 +80,14 @@ export default function Appointment() {
         return (
             <div className="rounded-xl overflow-hidden border border-gray-300">
                 <table className="min-w-full">
-                    <thead className="bg-blue-600 text-white">
+                    <thead className="bg-blue-100 text-black">
                         <tr>
-                            <th className="p-3 text-left font-medium">Exame</th>
-                            <th className="p-3 text-left font-medium">Especialidade</th>
-                            <th className="p-3 text-left font-medium">Data</th>
-                            <th className="p-3 text-left font-medium">Hora</th>
-                            <th className="p-3 text-left font-medium">Observação</th>
-                            <th className="p-3 text-left font-medium"></th>
+                            <th className="p-3 text-left font-semibold">Exame</th>
+                            <th className="p-3 text-left font-semibold">Especialidade</th>
+                            <th className="p-3 text-left font-semibold">Data</th>
+                            <th className="p-3 text-left font-semibold">Hora</th>
+                            <th className="p-3 text-left font-semibold">Observação</th>
+                            <th className="p-3"></th>
                         </tr>
                     </thead>
 

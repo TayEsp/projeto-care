@@ -13,6 +13,11 @@ export async function createSession(access_token: string) {
     path: '/',
   })
 }
+ 
+export async function deleteSession() {
+  const cookieStore = await cookies()
+  cookieStore.delete('session')
+}
 
 export async function getSession() {
 
