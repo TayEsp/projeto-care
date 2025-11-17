@@ -1,7 +1,6 @@
 'use client'
 import Image from "next/image";
 import { useState } from 'react';
-import { createSession } from "./lib/sessions";
 
 
 export default function Home() {
@@ -22,11 +21,7 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/auth', {
-        method: 'POST',
-        body: JSON.stringify(formValues),
-        headers: { 'Content-Type': 'application/json' },
-      });
+      const response = await fetch('/api/auth', {method: 'POST', body: JSON.stringify(formValues), headers: { 'Content-Type': 'application/json' },});
 
       if (response.ok) {
         window.location.href = '/plataform';

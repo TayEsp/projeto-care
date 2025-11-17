@@ -11,10 +11,7 @@ import * as path from 'path';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: [
-        path.resolve(__dirname, '../../.env.shared'),
-        path.resolve(__dirname, '../.env'),
-      ],
+      envFilePath: [path.resolve(__dirname, '../.env')],
     }),
     AuthModule,
     UserModule,

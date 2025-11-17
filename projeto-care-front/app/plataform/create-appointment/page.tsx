@@ -19,7 +19,7 @@ export default function SignUpFormulario() {
     });
 
     useEffect(() => {
-            async function createExams() {
+            async function getExams() {
     
                 try {
                     const response = await fetch('http://localhost:3001/exam/listExams', { method: "GET", headers: { "Content-Type": "application/json" } })
@@ -37,7 +37,7 @@ export default function SignUpFormulario() {
                     alert("Erro ao carregar. Tente novamente mais tarde.");
                 }
             }
-            createExams()
+            getExams()
     
         }, [])
 
@@ -69,11 +69,7 @@ export default function SignUpFormulario() {
         }
 
         try {
-            const response = await fetch('/api/appointment', {
-                    method: 'POST',
-                    body: JSON.stringify(resultForm),
-                    headers: { 'Content-Type': 'application/json' },
-                });
+            const response = await fetch('/api/appointment', {method: 'POST', body: JSON.stringify(resultForm), headers: { 'Content-Type': 'application/json' },});
             if (response?.ok) {
                 alert("Agendado com sucesso!")
             } else {
@@ -103,13 +99,12 @@ export default function SignUpFormulario() {
                     </div>
 
                     <div className="mt-5">
-
                         <form method="POST" onSubmit={handleSubmit}>
                             <div className="grid gap-y-4">
                                 <div className="flex-1 flex-col min-w-40">
                                     <label id="observacoes" className="block text-sm mb-2 ">Exame</label>
                                     <select id="ExameId" value={formValues.ExameId} onChange={handleSelectChange} className="py-2 px-3 block w-full border border-blue-100 focus:border-blue-600 shadow-sm text-sm rounded-lg focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-                                            <option key='' value=''> Escolha um exame</option>
+                                            <option key='' value=''>Escolha um exame</option>
                                         {exams?.map((exame: Exam, index: number) => (
                                             <option key={index} value={exame.id}> {exame.nome} - {exame.especialidade}</option>
                                         ))}

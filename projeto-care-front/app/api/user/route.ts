@@ -5,8 +5,9 @@ import { getSession } from "../../lib/sessions";
 
 export async function GET() {
     const token = await getSession();
-    const userSession = await getUser();
 
+    //pega o id do usuario pela session
+    const userSession = await getUser();
     if (!userSession) {
         return NextResponse.json(
         { error: "Usuário não autenticado" },

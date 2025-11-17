@@ -9,10 +9,8 @@ type ExamItem = {
 export default function Exam() {
     const [exams, setExams] = useState<ExamItem[]>([]);
 
-
     useEffect(() => {
-        async function createExams() {
-
+        async function getExams() {
             try {
                 const response = await fetch('http://localhost:3001/exam/listExams', { method: "GET", headers: { "Content-Type": "application/json" } })
                 if (response?.ok) {
@@ -29,7 +27,7 @@ export default function Exam() {
                 alert("Erro ao carregar. Tente novamente mais tarde.");
             }
         }
-        createExams()
+        getExams()
 
     }, [])
 
@@ -56,6 +54,7 @@ export default function Exam() {
             </div>
         );
     };
+
     if (!exams)
         return <p className="p-6 flex justify-center items-center text-xl font-semibold">carregando...</p>
 

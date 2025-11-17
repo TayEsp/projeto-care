@@ -25,9 +25,8 @@ export default function Plataform() {
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-
+        //cria os dias da semana baseada no dia de hoje começando pelo domingo 
         function adicinarSemana() {
-
             const diaSemana = new Date().getDay();
             const dataHoje = new Date()
             const dia = String(dataHoje.getDate()).padStart(2, '0');
@@ -39,13 +38,11 @@ export default function Plataform() {
                 const calcDia = (+dia) - (diaSemana - i);
                 novaSemana[i] = `${calcDia}/${mes}`;
             }
-
             setSemana(novaSemana);
         }
-
         adicinarSemana()
 
-        async function createUser() {
+        async function getUser() {
             try {
                 const response = await fetch('/api/user', { method: "GET", headers: { "Content-Type": "application/json" } })
                 if (response.ok) {
@@ -63,14 +60,14 @@ export default function Plataform() {
             }
 
         }
-        createUser()
+        getUser()
 
     }, [])
 
     if (!user) {
         return <p className="p-6 flex justify-center items-center text-xl font-semibold">carregando...</p>
     }
-
+    //caso não haja agendamentos
     if (!user.agendamento || user.agendamento.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center h-[60vh] text-center p-4">
@@ -101,7 +98,8 @@ export default function Plataform() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr> 
+                            {/* mostra os agendamentos apenas da semana, caso algum dia de agendamento seja igual ao dia da semana */}
                             {semana.map((dataDia, idx) => {
                                 const agendamentosDoDia = user.agendamento
                                     ?.filter(ag => {
@@ -112,6 +110,7 @@ export default function Plataform() {
                                         return (agDiaMes === dataDia) && (anoData === ano);
                                     }) || [];
 
+                                //se não tiver nenhum agendamento no dia ele coloca - se sim mostra o agendamento
                                 return (
                                     <td key={idx} className="p-2 align-top">
                                         {agendamentosDoDia.length > 0 ? (

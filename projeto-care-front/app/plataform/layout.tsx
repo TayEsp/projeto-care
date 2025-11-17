@@ -9,28 +9,21 @@ export default function ClientLayout({
 }>) {
 
   async function Logout() {
-        const confirmDelete = window.confirm("Tem certeza que deseja sair?");
+    const confirmDelete = window.confirm("Tem certeza que deseja sair?");
 
     if (confirmDelete) {
-        
-        try {
-            const res = await fetch('/api/auth', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (res.ok) {
-                window.location.href = '/';
-            } else {
-                console.error('Erro ao fazer o logout');
-            }
-        } catch (err) {
-            console.error('Erro ao fazer o logout', err);
+      try {
+        const res = await fetch('/api/auth', { method: 'DELETE', headers: { 'Content-Type': 'application/json', }, });
+        if (res.ok) {
+          window.location.href = '/';
+        } else {
+          console.error('Erro ao fazer o logout');
         }
+      } catch (err) {
+        console.error('Erro ao fazer o logout', err);
+      }
     }
-    };
+  };
 
   return (
     <div className="flex flex-row h-screen">
@@ -70,7 +63,7 @@ export default function ClientLayout({
                 </li>
 
                 <li className="hs-accordion mt-8" id="account-accordion">
-                  <button  onClick={() => Logout()} className="hs-accordion-toggle cursor-pointer w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-red-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-red-400" aria-expanded="true" aria-controls="account-accordion-child">Logout</button>
+                  <button onClick={() => Logout()} className="hs-accordion-toggle cursor-pointer w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-red-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-red-400" aria-expanded="true" aria-controls="account-accordion-child">Logout</button>
                 </li>
               </ul>
             </nav>

@@ -24,9 +24,7 @@ export default function Appointment() {
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-
-        async function createUser() {
-
+        async function getUserAppointments() {
             try {
                 const response = await fetch('/api/user', { method: "GET", headers: { "Content-Type": "application/json" } })
                 if (response?.ok) {
@@ -44,7 +42,7 @@ export default function Appointment() {
             }
 
         }
-        createUser()
+        getUserAppointments()
 
     }, [])
 
@@ -54,26 +52,24 @@ export default function Appointment() {
 
     async function cancelAppointment(id: string) {
         const confirmDelete = window.confirm("Tem certeza que deseja cancelar o agendamento?");
+        if (confirmDelete) {
+            try {
+                const res = await fetch(`http://localhost:3001/appointment/delete/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
 
-    if (confirmDelete) {
-        
-        try {
-            const res = await fetch(`http://localhost:3001/appointment/delete/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (res.ok) {
-                alert("Cancelado com sucesso!")
-            } else {
-                console.error('Erro ao excluir agendamento');
+                if (res.ok) {
+                    alert("Cancelado com sucesso!")
+                } else {
+                    console.error('Erro ao excluir agendamento');
+                }
+            } catch (err) {
+                console.error('Erro ao excluir agendamento:', err);
             }
-        } catch (err) {
-            console.error('Erro ao excluir agendamento:', err);
         }
-    }
     };
 
     const appointmentTemplate = (user: User) => {
@@ -100,17 +96,17 @@ export default function Appointment() {
                                 <td className="p-3">{agendamento.Exame.nome}</td>
                                 <td className="p-3">{agendamento.Exame.especialidade}</td>
                                 <td className="p-3">
-                                    {new Date(agendamento.data).toLocaleDateString("pt-BR")}
+                                    {new Date(agendamento.data).toLocaleDateString("pt-BR")};
                                 </td>
                                 <td className="p-3">
-                                    {new Date(agendamento.data).getHours()}:
-                                    {new Date(agendamento.data).getMinutes()}
+                                    {new Date(agendamento.data).getHours().toString().padStart(2, '0')};
+                                    {new Date(agendamento.data).getMinutes().toString().padStart(2, '0')};
                                 </td>
                                 <td className="p-3">{agendamento.observacoes}</td>
                                 <td >
-                                <button className="p-1 cursor-pointer border border-gray-50 rounded-xl bg-red-200"
-                                    onClick={() => cancelAppointment(agendamento.id)}
-                                >Cancelar Agendamento</button>
+                                    <button className="p-1 cursor-pointer border border-gray-50 rounded-xl bg-red-200"
+                                        onClick={() => cancelAppointment(agendamento.id)}
+                                    >Cancelar Agendamento</button>
                                 </td>
                             </tr>
                         ))}

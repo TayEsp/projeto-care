@@ -13,6 +13,7 @@ export async function POST(req: NextRequest) {
 
   if (response.ok) {
     const { access_token } = await response.json();
+    //cria o cookie da sessão
     await createSession(access_token);
 
     return NextResponse.json({ status: 200 });
@@ -25,6 +26,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
+//Faz logout do usuario
 export async function DELETE() {
   try{
     await deleteSession()

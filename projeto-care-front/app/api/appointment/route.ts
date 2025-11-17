@@ -4,8 +4,9 @@ import { getUser } from "../../lib/getUser";
 
 export async function POST(req: NextRequest) {
     const formValues = await req.json();
-    const userSession = await getUser();
 
+    //pega o id do usuario pela session
+    const userSession = await getUser();
     if (!userSession) {
         return NextResponse.json(
             { error: "Usuário não autenticado" },
